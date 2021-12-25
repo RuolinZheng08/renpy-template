@@ -253,14 +253,14 @@ screen quick_menu():
             xalign 0.5
             yalign 1.0
 
-            textbutton _("Back") action Rollback()
-            textbutton _("History") action ShowMenu('history')
-            textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Save") action ShowMenu('save')
+            textbutton '{icon=icon-skip-back} ' + _("Back") action Rollback()
+            textbutton '{icon=icon-compass} '+ _("History") action ShowMenu('history')
+            textbutton '{icon=icon-fast-forward} ' + _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
+            textbutton '{icon=icon-play-circle} ' + _("Auto") action Preference("auto-forward", "toggle")
+            textbutton '{icon=icon-save} ' + _("Save") action ShowMenu('save')
             textbutton _("Q.Save") action QuickSave()
             textbutton _("Q.Load") action QuickLoad()
-            textbutton _("Prefs") action ShowMenu('preferences')
+            textbutton '{icon=icon-settings} ' + _("Prefs") action ShowMenu('preferences')
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -301,17 +301,17 @@ screen navigation():
 
         if main_menu:
 
-            textbutton _("Start") action Start()
+            textbutton '{icon=icon-feather} ' + _("Start") action Start()
 
         else:
 
-            textbutton _("History") action ShowMenu("history")
+            textbutton '{icon=icon-compass} ' + _("History") action ShowMenu("history")
 
-            textbutton _("Save") action ShowMenu("save")
+            textbutton '{icon=icon-save} ' +  _("Save") action ShowMenu("save")
 
-        textbutton _("Load") action ShowMenu("load")
+        textbutton '{icon=icon-bookmark} ' + _("Load") action ShowMenu("load")
 
-        textbutton _("Preferences") action ShowMenu("preferences")
+        textbutton '{icon=icon-settings} ' + _("Preferences") action ShowMenu("preferences")
 
         if _in_replay:
 
@@ -319,20 +319,20 @@ screen navigation():
 
         elif not main_menu:
 
-            textbutton _("Main Menu") action MainMenu()
+            textbutton '{icon=icon-grid} ' + _("Main Menu") action MainMenu()
 
-        textbutton _("About") action ShowMenu("about")
+        textbutton '{icon=icon-info} ' + _("About") action ShowMenu("about")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## Help isn't necessary or relevant to mobile devices.
-            textbutton _("Help") action ShowMenu("help")
+            textbutton '{icon=icon-help-circle} ' + _("Help") action ShowMenu("help")
 
         if renpy.variant("pc"):
 
             ## The quit button is banned on iOS and unnecessary on Android and
             ## Web.
-            textbutton _("Quit") action Quit(confirm=not main_menu)
+            textbutton '{icon=icon-x-circle} ' + _("Quit") action Quit(confirm=not main_menu)
 
 
 style navigation_button is gui_button
