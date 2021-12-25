@@ -18,6 +18,22 @@
     call screen expression_showcase_screen()
 
     show sprite vivian smile blush
-    vivian "See you next time!"
+    vivian "Time sure flies when I'm with you."
+
+    $ time_of_day = DUSK
+    vivian "I can't believe it's already getting dark. Let's go somewhere else before it gets dark."
+
+    $ time_of_day = NIGHT
+
+    scene bg house with dissolve
+    vivian "Now it's dark and we are in the woods. Spooky!"
+
+    $ sprite_effect = DIM
+    vivian "Would it be better if I turn on the flashlight on my phone?"
+    vivian "Hey, I just remembered something..."
+
+    $ time_of_day = SEPIA
+    $ sprite_effect = None
+    vivian "Now we are in flashback mode."
 
     return

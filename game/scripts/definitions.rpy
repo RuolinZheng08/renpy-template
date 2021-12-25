@@ -1,4 +1,6 @@
 init python:
+    import re # regex for parsing file name
+
     # define italics and bold fonts
     # the arguments are: font file, boldness, italics
     config.font_replacement_map["fonts/Mali/Mali-Regular.ttf", True, False] = ("fonts/Mali/Mali-Bold.ttf", False, False)
@@ -19,13 +21,82 @@ init python:
 
             return rv
 
+
+    ## day-night effects
+    # constants
+    DAY = 'day'
+    DUSK = 'dusk'
+    NIGHT = 'night'
+    SEPIA = 'sepia'
+    DIM = 'dim'
+
+    # https://www.twoandahalfstudios.com/2019/08/tds-making-of-3-day-night-and-sunset-reshading-images-in-renpy-with-im-matrixcolor
+    tint_dark = im.matrix.tint(0.44, 0.44, 0.75) * im.matrix.brightness(-0.02)
+    tint_sunset = im.matrix.tint(0.85, 0.60, 0.45) * im.matrix.brightness(0.10)
+    # late night in front of glowing object
+    tint_dim = im.matrix.tint(0.90, 0.90, 1) * im.matrix.brightness(-0.1)
+
+    # programmatically apply effects
+    for file in renpy.list_files():
+        ## bg images inside game/images/bg 
+        if file.startswith('images/bg'):
+            image_path = re.sub(r'images/', '', file) # remove the `images/` prefix
+            image_name = re.match(r'images/bg/(.+).png', file).group(1) # ex. images/bg/(bg living_room).png
+            renpy.image(image_name + ' day', image_path) # only change the name in preparation for the ConditionSwitch
+            renpy.image(image_name + ' dusk', im.MatrixColor(image_path, tint_sunset))
+            renpy.image(image_name + ' night', im.MatrixColor(image_path, tint_dark))
+            # sepia for flashback scenes
+            renpy.image(image_name + ' sepia', im.Sepia(image_path))
+
+            # hook the image to the `time_of_day` variable
+            # loop over the times to construct the arguments to ConditionSwitch()
+            args = []
+            for time in [DAY, DUSK, NIGHT, SEPIA]:
+                args.extend(['time_of_day == %s' % time.upper(), image_name + ' ' + time])
+            renpy.image(image_name, ConditionSwitch(*args))
+
+            """
+            # if we were to write this out in plain Ren'Py code, it becomes:
+
+                image bg hallway = ConditionSwitch(
+                'time_of_day == DAY', 'bg hallway day',
+                'time_of_day == DUSK', 'bg hallway dusk',
+                'time_of_day == NIGHT', 'bg hallway night',
+                'time_of_day == SEPIA', 'bg hallway sepia',
+                )
+            """
+
+        ## do the same for character sprites
+        if file.startswith('images/chara/'):
+            image_path = re.sub(r'images/', '', file) # remove the `images/` prefix
+            image_name = re.match(r'images/chara/.+/(.+).png', file).group(1) # ex. images/chara/vivian/(sprite_vivian_eyes_closed).png
+            renpy.image(image_name + ' day', image_path) # only change the name in preparation for the ConditionSwitch
+            renpy.image(image_name + ' dusk', im.MatrixColor(image_path, tint_sunset))
+            renpy.image(image_name + ' night', im.MatrixColor(image_path, tint_dark))
+            renpy.image(image_name + ' dim', im.MatrixColor(image_path, tint_dim))
+            # sepia for flashback scenes
+            renpy.image(image_name + ' sepia', im.Sepia(image_path))
+
+            # hook the image to the `time_of_day` variable
+            # loop over the times to construct the arguments to ConditionSwitch()
+            # `sprite_effect` has higher precedence than `time_of_day`
+            args = ['sprite_effect == DIM', image_name + ' dim']
+            for time in [DAY, DUSK, NIGHT, SEPIA]:
+                args.extend(['time_of_day == %s' % time.upper(), image_name + ' ' + time])
+            renpy.image(image_name, ConditionSwitch(*args))
+
 init:
     define vivian = Character("Vivian")
     # use this instead if we want side image
     # define vivian = Character("Vivian", image='vivian')
 
-    ## character sprites
+    ## changing time_of_day automatically changes the color of bg and sprites
+    # valid values: [DAY, DUSK, NIGHT, SEPIA]
+    default time_of_day = DAY
+    # valid values: [None, DIM]
+    default sprite_effect = None
 
+    ## character sprites
     define expressions = [
     "neutral eyes_center_blink brows_neutral mouth_neutral",
     "smile eyes_center_blink brows_neutral mouth_smile",
@@ -36,18 +107,18 @@ init:
 
     # blink
     image sprite_vivian_eyes_center_blink = DynamicBlink(
-        "images/chara/vivian/sprite_vivian_eyes_center.png",
-        "images/chara/vivian/sprite_vivian_eyes_closed.png"
+        "sprite_vivian_eyes_center",
+        "sprite_vivian_eyes_closed"
         )
 
     image sprite_vivian_eyes_down_blink = DynamicBlink(
-        "images/chara/vivian/sprite_vivian_eyes_down.png",
-        "images/chara/vivian/sprite_vivian_eyes_closed.png"
+        "sprite_vivian_eyes_down",
+        "sprite_vivian_eyes_closed"
         )
 
     image sprite_vivian_eyes_away_blink = DynamicBlink(
-        "images/chara/vivian/sprite_vivian_eyes_away.png",
-        "images/chara/vivian/sprite_vivian_eyes_closed.png"
+        "sprite_vivian_eyes_away",
+        "sprite_vivian_eyes_closed"
         )
 
     layeredimage sprite vivian:
