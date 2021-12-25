@@ -103,6 +103,7 @@ init:
     "neutralAway eyes_away_blink brows_neutral mouth_neutral",
     "neutralDown eyes_down_blink brows_neutral mouth_neutral",
     "laugh eyes_laugh brows_raised mouth_laugh",
+    "sadDown eyes_down_blink brows_worried mouth_pout"
     ]
 
     # blink
@@ -137,8 +138,13 @@ init:
             attribute neutralAway null
             attribute neutralDown null
             attribute laugh null
+            attribute sadDown null
 
         attribute_function Picker(expressions)
 
     # uncomment this to use vivian on the side
     # image side vivian = LayeredImageProxy("vivian")
+
+    ## miscellaneous images
+    image black = '#000'
+    image white = '#fff'
