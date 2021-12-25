@@ -13,4 +13,6 @@
     show sprite vivian neutralDown -blush
     vivian "I don't know how to say this really..."
 
+    call screen expression_showcase_screen()
+
     return
