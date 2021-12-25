@@ -13,19 +13,48 @@ screen expression_showcase_screen():
         hbox:
             spacing 100
             # left
-            vbox:
-                label "Brows"
+            viewport:
+                scrollbars "vertical"
+                xsize 300
+                ymaximum config.screen_height
+                child_size (None, 4000)
 
-                label "Eyes"
+                has vbox
+                spacing 20
 
-                label "Mouth"
+                vbox:
+                    label "Brows"
+                    for exp in ['neutral', 'angry', 'raised', 'worried']:
+                        textbutton exp:
+                            action SetScreenVariable(
+                                name='sprite_brows', 
+                                value='sprite_vivian_brows_%s' % exp
+                                )
+
+                vbox:
+                    label "Eyes"
+                    for exp in ['center_blink', 'down_blink', 'away_blink', 'closed', 'laugh']:
+                        textbutton exp:
+                            action SetScreenVariable(
+                                name='sprite_eyes', 
+                                value='sprite_vivian_eyes_%s' % exp
+                                )
+
+                vbox:
+                    label "Mouth"
+                    for exp in ['neutral', 'smile', 'laugh', 'pout', 'oh']:
+                        textbutton exp:
+                            action SetScreenVariable(
+                                name='sprite_mouth', 
+                                value='sprite_vivian_mouth_%s' % exp
+                                )
 
                 vbox:
                     label "Others"
                     style_prefix "check"
-                    textbutton "Blush":
+                    textbutton "blush":
                         action ToggleScreenVariable(name='sprite_blush', true_value=True, false_value=False)
-                    textbutton "Tears":
+                    textbutton "tears":
                         action ToggleScreenVariable(name='sprite_tears', true_value=True, false_value=False)
 
             # middle
