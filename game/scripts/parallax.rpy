@@ -41,3 +41,8 @@ init 800 python:
         return 0
 
     MouseParallax([(-20,"farthestBack"),(-50,"farBack"),(-80,"back"),(-30,"front"),(50,"inyourface")])
+    
+    config.tag_layer = {
+    'sprite': 'back', 
+    'bg' : 'farBack'
+    }
