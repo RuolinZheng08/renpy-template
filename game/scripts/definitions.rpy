@@ -96,6 +96,8 @@ init:
     # valid values: [None, DIM]
     default sprite_effect = None
 
+    default persistent.bgPan = True
+
     ## character sprites
     define expressions = [
     "neutral eyes_center_blink brows_neutral mouth_neutral",

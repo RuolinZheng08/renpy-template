@@ -747,6 +747,10 @@ screen preferences():
 
                 ## Additional vboxes of type "radio_pref" or "check_pref" can be
                 ## added here, to add additional creator-defined preferences.
+                vbox:
+                    style_prefix "check"
+                    label _("Others")
+                    textbutton _("Background Pan") action ToggleField(persistent, "bgPan")
 
             null height (4 * gui.pref_spacing)
 
