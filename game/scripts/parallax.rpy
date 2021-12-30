@@ -36,13 +36,14 @@ init 800 python:
 
     def trans(d, st, at, disp=None, m=None):
         d.xoffset, d.yoffset = int(round(m*disp.xoffset)), int(round(m*disp.yoffset))
-        if persistent.bgPan is False:
+        if persistent.bg_parallax is False:
             d.xoffset, d.yoffset=0,0
         return 0
 
     MouseParallax([(-20,"farthestBack"),(-50,"farBack"),(-80,"back"),(-30,"front"),(50,"inyourface")])
     
     config.tag_layer = {
+    'effects': 'back', # particle effects etc.
     'sprite': 'back', 
     'bg' : 'farBack'
     }

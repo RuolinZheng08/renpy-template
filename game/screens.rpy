@@ -27,6 +27,7 @@ style gui_text:
 
 style button:
     properties gui.button_properties("button")
+    activate_sound "audio/sfx/button_click.wav"
 
 style button_text is gui_text:
     properties gui.text_properties("button")
@@ -230,6 +231,7 @@ style choice_vbox:
 
 style choice_button is default:
     properties gui.button_properties("choice_button")
+    activate_sound "audio/sfx/button_click.wav"
 
 style choice_button_text is default:
     properties gui.button_text_properties("choice_button")
@@ -357,7 +359,10 @@ screen main_menu():
     ## This ensures that any other menu screen is replaced.
     tag menu
 
-    add gui.main_menu_background
+    # add gui.main_menu_background
+    add 'bg pool' at Pan((100, 100), (100, 1097), 40, repeat=True)
+    add 'sprite pool'
+    add 'effects pool' at additive_blend
 
     ## This empty frame darkens the main menu.
     frame:
@@ -421,10 +426,11 @@ screen game_menu(title, scroll=None, yinitial=0.0):
 
     style_prefix "game_menu"
 
-    if main_menu:
-        add gui.main_menu_background
-    else:
-        add gui.game_menu_background
+    # if main_menu:
+    #     add gui.main_menu_background
+    # else:
+    #     add gui.game_menu_background
+    add 'bg pool' at Pan((100, 100), (100, 1097), 40, repeat=True)
 
     frame:
         style "game_menu_outer_frame"

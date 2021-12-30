@@ -96,7 +96,7 @@ init:
     # valid values: [None, DIM]
     default sprite_effect = None
 
-    default persistent.bgPan = True
+    default persistent.bg_parallax = True
 
     ## character sprites
     define expressions = [
@@ -148,5 +148,16 @@ init:
     # image side vivian = LayeredImageProxy("vivian")
 
     ## miscellaneous images
-    image black = '#000'
-    image white = '#fff'
+    define parallax_bg_size = (2200, 1237) # needs to be bigger than the screen size (1920, 1080)
+    image bg black = Solid('#000', xysize=parallax_bg_size)
+    image bg white = Solid('#fff', xysize=parallax_bg_size)
+
+    image effects pool:
+        'ripple1'
+        pause 1.0
+        'ripple2'
+        pause 1.0
+        repeat
+
+    # XXX: for some reason, not equivalent to image bg pool = Tile('tile pool', size=(2200, 1097 * 2))
+    image bg pool = im.Tile('cg/pool/tile pool.png', size=(2200, 1097 * 2))
