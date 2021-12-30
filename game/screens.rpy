@@ -361,7 +361,7 @@ screen main_menu():
 
     # add gui.main_menu_background
     add 'bg pool' at Pan((100, 100), (100, 1097), 40, repeat=True)
-    add 'sprite pool'
+    add 'sprite pool' at floating
     add 'effects pool' at additive_blend
 
     ## This empty frame darkens the main menu.

@@ -67,10 +67,14 @@ label paperplane:
     scene bg black with eyeclose
 
 label pool:
+    # whenever you use Pan, need to reset at the next scene
     scene bg pool at Pan((100, 100), (100, 1097), 40, repeat=True)
         # truecenter        
     # with dissolve
-    show sprite pool at truecenter with dissolve
+    show sprite pool:
+        parallel:
+            truecenter
+            floating
     show effects pool:
         parallel:
             truecenter
@@ -82,6 +86,7 @@ label pool:
 
     hide sprite pool
     hide effects pool
-    scene bg black with eyeclose
+    scene bg black at truecenter with eyeclose
+    scene bg snowbridge
     "This concludes our effect showcase. More effects on the way!"
     return
