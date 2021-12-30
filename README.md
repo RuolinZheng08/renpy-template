@@ -1,6 +1,6 @@
 # My Awesome Ren'Py Template
 
-This project is a work in progress, featuring Ren'Py features that I frequently find myself using for different projects. If you'd like to see more effects, please feel free to create a GitHub issue.
+This project is a work in progress, featuring Ren'Py code snippets that I frequently find myself using for different projects. If you'd like to see more effects, please feel free to create a GitHub issue.
 
 ## Demo (See the full list of features below)
 
@@ -10,7 +10,7 @@ This project is a work in progress, featuring Ren'Py features that I frequently 
 ### Expression composition screen and blinking sprites
 <img src="https://github.com/RuolinZheng08/renpy-awesome-template/blob/4fa894ff261999ec5e0d25009cf107f7d9617502/demo/expressions.gif" width=600>
 
-### Lightning mode (day, dusk, night, dim, sepia)
+### Lightning modes (day, dusk, night, dim, sepia)
 <img src="https://github.com/RuolinZheng08/renpy-awesome-template/blob/4fa894ff261999ec5e0d25009cf107f7d9617502/demo/lighting.gif" width=600>
 
 ### Parallax
@@ -23,7 +23,7 @@ This project is a work in progress, featuring Ren'Py features that I frequently 
 Here is a list of features showcased in this project:
 - Blinking sprites
 - Expression composition screen
-- Lightning mode (day, dusk, night, dim, sepia)
+- Lightning modes (day, dusk, night, dim, sepia)
 - Feather icons in the UI text
 - Parallax BGs and CGs
 - Eye-opening and closing transitions
