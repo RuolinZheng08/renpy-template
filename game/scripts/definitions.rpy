@@ -69,7 +69,7 @@ init python:
         ## do the same for character sprites
         if file.startswith('images/chara/'):
             image_path = re.sub(r'images/', '', file) # remove the `images/` prefix
-            image_name = re.match(r'images/chara/.+/(.+).png', file).group(1) # ex. images/chara/vivian/(sprite_vivian_eyes_closed).png
+            image_name = re.match(r'images/chara/.+/(.+).png', file).group(1) # ex. images/chara/vivian/(vivian_eyes_closed).png
             renpy.image(image_name + ' day', image_path) # only change the name in preparation for the ConditionSwitch
             renpy.image(image_name + ' dusk', im.MatrixColor(image_path, tint_sunset))
             renpy.image(image_name + ' night', im.MatrixColor(image_path, tint_dark))
@@ -79,7 +79,7 @@ init python:
 
             # hook the image to the `time_of_day` variable
             # loop over the times to construct the arguments to ConditionSwitch()
-            # `sprite_effect` has higher precedence than `time_of_day`
+            # `effect` has higher precedence than `time_of_day`
             args = ['sprite_effect == DIM', image_name + ' dim']
             for time in [DAY, DUSK, NIGHT, SEPIA]:
                 args.extend(['time_of_day == %s' % time.upper(), image_name + ' ' + time])
@@ -109,23 +109,23 @@ init:
     ]
 
     # blink
-    image sprite_vivian_eyes_center_blink = DynamicBlink(
-        "sprite_vivian_eyes_center",
-        "sprite_vivian_eyes_closed"
+    image vivian_eyes_center_blink = DynamicBlink(
+        "vivian_eyes_center",
+        "vivian_eyes_closed"
         )
 
-    image sprite_vivian_eyes_down_blink = DynamicBlink(
-        "sprite_vivian_eyes_down",
-        "sprite_vivian_eyes_closed"
+    image vivian_eyes_down_blink = DynamicBlink(
+        "vivian_eyes_down",
+        "vivian_eyes_closed"
         )
 
-    image sprite_vivian_eyes_away_blink = DynamicBlink(
-        "sprite_vivian_eyes_away",
-        "sprite_vivian_eyes_closed"
+    image vivian_eyes_away_blink = DynamicBlink(
+        "vivian_eyes_away",
+        "vivian_eyes_closed"
         )
 
-    layeredimage sprite vivian:
-        always "sprite_vivian_base"
+    layeredimage vivian:
+        always "vivian_base"
 
         attribute blush
         attribute tears
@@ -143,6 +143,13 @@ init:
             attribute sadDown null
 
         attribute_function Picker(expressions)
+
+    # for demo purpose, let's introduce vivian's evil twin
+    layeredimage vivian2:
+        always 'vivian_base'
+        always 'vivian_eyes_center_blink'
+        always 'vivian_brows_neutral'
+        always 'vivian_mouth_neutral'
 
     # uncomment this to use vivian on the side
     # image side vivian = LayeredImageProxy("vivian")

@@ -45,5 +45,9 @@ init 800 python:
     config.tag_layer = {
     'effects': 'back', # particle effects etc.
     'sprite': 'back', 
-    'bg' : 'farBack'
+    'bg' : 'farBack',
+
+    # put your list of character images here
+    'vivian': 'back',
+    'vivian2': 'back',
     }
